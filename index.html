@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fraud Detection AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --color-primary: #4A249D; /* Deep Purple */
+        --color-primary-dark: #3E1F82;
+        --color-primary-text: #FFFFFF; /* Text on primary bg */
+        --color-secondary: #D4AF37; /* Golden */
+        --color-secondary-text: #4A249D; /* Text on secondary bg */
+        
+        --color-text-base: #2D3748; /* Dark Grey for text */
+        --color-text-muted: #718096; /* Lighter grey for muted text */
+        --color-text-heading: #1A202C; /* Very dark for headings */
+        --color-text-inverted: #FFFFFF; /* Text on dark backgrounds */
+
+        --color-bg-base: #E9F5F1; /* Light minty green/off-white */
+        --color-bg-gradient-end: #D1E0DB; /* Slightly darker for gradient */
+        --color-surface: #FFFFFF; /* White for cards, inputs */
+        --color-surface-alt: #F7FAFC; /* Slightly off-white for alternate surfaces */
+        --color-border: #CBD5E0; /* Light grey border */
+        --color-border-input: #A0AEC0; /* Input border */
+
+        --color-babypink: #A990C8; /* Muted Light Purple */
+
+        /* Status Colors */
+        --color-success-bg: #C6F6D5;
+        --color-success-text: #2F855A;
+        --color-success-border: #9AE6B4;
+
+        --color-warning-bg: #FEF3C7;
+        --color-warning-text: #B45309;
+        --color-warning-border: #FDE68A;
+
+        --color-danger-bg: #FED7D7;
+        --color-danger-text: #C53030;
+        --color-danger-border: #FEB2B2;
+
+        --color-info-bg: #E0F2FE;
+        --color-info-text: #0C4A6E;
+        
+        /* Chat Bubbles */
+        --color-chat-user-bg: #3B82F6; /* Sky 500 */
+        --color-chat-user-text: #FFFFFF;
+        --color-chat-ai-bg: #84CC16; /* Lime 500 */
+        --color-chat-ai-text: #1A202C;
+        --color-chat-ai-error-bg: #EF4444; /* Red 500 */
+        --color-chat-ai-error-text: #FFFFFF;
+        --color-chat-thinking-bg: #E5E7EB; /* Gray 200 */
+        --color-chat-thinking-text: #4B5563; /* Gray 600 */
+
+        /* Action Buttons */
+        --color-action-green-bg: #10B981; /* Green 500 */
+        --color-action-green-hover-bg: #059669; /* Green 600 */
+        --color-action-red-bg: #EF4444; /* Red 500 */
+        --color-action-red-hover-bg: #DC2626; /* Red 600 */
+        --color-action-blue-bg: #3B82F6; /* Blue 500 */
+        --color-action-blue-hover-bg: #2563EB; /* Blue 600 */
+      }
+
+      [data-theme="dark"] {
+        --color-primary: #7E57C2; /* Lighter Purple */
+        --color-primary-dark: #673AB7;
+        --color-primary-text: #FFFFFF;
+        --color-secondary: #FFCA28; /* Brighter Golden */
+        --color-secondary-text: #1A202C;
+        
+        --color-text-base: #E2E8F0; /* Light Grey for text */
+        --color-text-muted: #A0AEC0; /* Medium grey for muted text */
+        --color-text-heading: #F7FAFC; /* Almost white for headings */
+        --color-text-inverted: #1A202C; /* Text on light backgrounds */
+        
+        --color-bg-base: #1A202C;   /* Darkest Blue/Grey background */
+        --color-bg-gradient-end: #2D3748; /* Darker grey for gradient */
+        --color-surface: #2D3748; /* Darker surface for cards, inputs */
+        --color-surface-alt: #1A202C; /* Even darker for alternate surfaces */
+        --color-border: #4A5568; /* Darker grey border */
+        --color-border-input: #718096; /* Input border */
+
+        --color-babypink: #C3AEDC;
+
+        /* Status Colors */
+        --color-success-bg: #2F855A;
+        --color-success-text: #C6F6D5;
+        --color-success-border: #38A169;
+
+        --color-warning-bg: #B45309;
+        --color-warning-text: #FEF3C7;
+        --color-warning-border: #D97706;
+
+        --color-danger-bg: #C53030;
+        --color-danger-text: #FED7D7;
+        --color-danger-border: #E53E3E;
+        
+        --color-info-bg: #0C4A6E;
+        --color-info-text: #E0F2FE;
+
+        /* Chat Bubbles */
+        --color-chat-user-bg: #2563EB; /* Blue 600 */
+        --color-chat-user-text: #FFFFFF;
+        --color-chat-ai-bg: #65A30D; /* Lime 600 */
+        --color-chat-ai-text: #F0FDF4;
+        --color-chat-ai-error-bg: #B91C1C; /* Red 700 */
+        --color-chat-ai-error-text: #FEF2F2;
+        --color-chat-thinking-bg: #4B5563; /* Gray 600 */
+        --color-chat-thinking-text: #D1D5DB; /* Gray 300 */
+        
+        /* Action Buttons */
+        --color-action-green-bg: #059669; /* Green 600 */
+        --color-action-green-hover-bg: #047857; /* Green 700 */
+        --color-action-red-bg: #DC2626; /* Red 600 */
+        --color-action-red-hover-bg: #B91C1C; /* Red 700 */
+        --color-action-blue-bg: #2563EB; /* Blue 600 */
+        --color-action-blue-hover-bg: #1D4ED8; /* Blue 700 */
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: ['selector', '[data-theme="dark"]'], // Enable dark mode using data-theme attribute
+        theme: {
+          extend: {
+            colors: {
+              'brand-primary': 'var(--color-primary)',
+              'brand-primary-dark': 'var(--color-primary-dark)',
+              'brand-primary-text': 'var(--color-primary-text)',
+              'brand-secondary': 'var(--color-secondary)',
+              'brand-secondary-text': 'var(--color-secondary-text)',
+              
+              'brand-text-base': 'var(--color-text-base)',
+              'brand-text-muted': 'var(--color-text-muted)',
+              'brand-text-heading': 'var(--color-text-heading)',
+              'brand-text-inverted': 'var(--color-text-inverted)',
+
+              'brand-bg-base': 'var(--color-bg-base)',
+              'brand-bg-gradient-end': 'var(--color-bg-gradient-end)',
+              'brand-surface': 'var(--color-surface)',
+              'brand-surface-alt': 'var(--color-surface-alt)',
+              'brand-border': 'var(--color-border)',
+              'brand-border-input': 'var(--color-border-input)',
+              
+              'brand-babypink': 'var(--color-babypink)',
+
+              'status-success-bg': 'var(--color-success-bg)',
+              'status-success-text': 'var(--color-success-text)',
+              'status-success-border': 'var(--color-success-border)',
+              'status-warning-bg': 'var(--color-warning-bg)',
+              'status-warning-text': 'var(--color-warning-text)',
+              'status-warning-border': 'var(--color-warning-border)',
+              'status-danger-bg': 'var(--color-danger-bg)',
+              'status-danger-text': 'var(--color-danger-text)',
+              'status-danger-border': 'var(--color-danger-border)',
+              'status-info-bg': 'var(--color-info-bg)',
+              'status-info-text': 'var(--color-info-text)',
+
+              'chat-user-bg': 'var(--color-chat-user-bg)',
+              'chat-user-text': 'var(--color-chat-user-text)',
+              'chat-ai-bg': 'var(--color-chat-ai-bg)',
+              'chat-ai-text': 'var(--color-chat-ai-text)',
+              'chat-ai-error-bg': 'var(--color-chat-ai-error-bg)',
+              'chat-ai-error-text': 'var(--color-chat-ai-error-text)',
+              'chat-thinking-bg': 'var(--color-chat-thinking-bg)',
+              'chat-thinking-text': 'var(--color-chat-thinking-text)',
+              
+              'action-green-bg': 'var(--color-action-green-bg)',
+              'action-green-hover-bg': 'var(--color-action-green-hover-bg)',
+              'action-red-bg': 'var(--color-action-red-bg)',
+              'action-red-hover-bg': 'var(--color-action-red-hover-bg)',
+              'action-blue-bg': 'var(--color-action-blue-bg)',
+              'action-blue-hover-bg': 'var(--color-action-blue-hover-bg)',
+
+              // Keep white, black, transparent for specific use cases if needed
+              // but prefer semantic variables for theming.
+              'white': '#FFFFFF', 
+              'black': '#000000',
+              'transparent': 'transparent',
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.4.0",
+    "jspdf": "https://esm.sh/jspdf@2.5.1",
+    "jspdf-autotable": "https://esm.sh/jspdf-autotable@3.8.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-brand-bg-base">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
