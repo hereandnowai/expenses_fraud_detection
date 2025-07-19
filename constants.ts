@@ -1,6 +1,6 @@
 import { CompanyPolicy, ExpenseCategory } from './types';
 
-export const GEMINI_MODEL_NAME = "gemini-2.5-flash-preview-04-17"; // General text and multimodal
+export const GEMINI_MODEL_NAME = "gemini-2.5-flash"; // General text and multimodal
 // For image generation, if needed: export const IMAGEN_MODEL_NAME = "imagen-3.0-generate-002";
 
 export const COMPANY_POLICIES: CompanyPolicy[] = [
